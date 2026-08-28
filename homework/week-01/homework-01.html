@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+}
+pre.numberSource { margin-left: 3em; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -2229,8 +2264,23 @@ x_{ij}\overset{\mathrm{iid}}{\sim}N(0,1),
 \mathbf y=\mathbf X\boldsymbol\beta+\boldsymbol\varepsilon.
 </annotation></semantics></math></p>
 <ol type="a">
-<li><p>Generate the data and report the dimensions and rank of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="bold-italic">𝑿</mi><annotation encoding="application/x-tex">\mathbf X</annotation></semantics></math>. Calculate the least-squares estimate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi mathvariant="bold-italic">𝜷</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\widehat{\boldsymbol\beta}</annotation></semantics></math> using a numerically stable least-squares routine, without explicitly calculating <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mi mathvariant="bold-italic">𝑿</mi><mi mathvariant="sans-serif">𝖳</mi></msup><mi mathvariant="bold-italic">𝑿</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(\mathbf X^{\mathsf T}\mathbf X)^{-1}</annotation></semantics></math>. Compare the estimates with the coefficients used to generate the data.</p></li>
-<li><p>Calculate the fitted values, the residual vector <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝒓</mi><mo>=</mo><mi mathvariant="bold-italic">𝒚</mi><mo>−</mo><mi mathvariant="bold-italic">𝑿</mi><mover><mi mathvariant="bold-italic">𝜷</mi><mo accent="true">̂</mo></mover></mrow><annotation encoding="application/x-tex">\mathbf r=\mathbf y-\mathbf X\widehat{\boldsymbol\beta}</annotation></semantics></math>, and the training root mean squared error</p></li>
+<li>Generate the data and report the dimensions and rank of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="bold-italic">𝑿</mi><annotation encoding="application/x-tex">\mathbf X</annotation></semantics></math>. Calculate the least-squares estimate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi mathvariant="bold-italic">𝜷</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\widehat{\boldsymbol\beta}</annotation></semantics></math> using a numerically stable least-squares routine, without explicitly calculating <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mi mathvariant="bold-italic">𝑿</mi><mi mathvariant="sans-serif">𝖳</mi></msup><mi mathvariant="bold-italic">𝑿</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(\mathbf X^{\mathsf T}\mathbf X)^{-1}</annotation></semantics></math>. Compare the estimates with the coefficients used to generate the data.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">43201</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n <span class="sc">*</span> p, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">nrow =</span> n, <span class="at">ncol =</span> p)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100   5</code></pre>
+</div>
+</div>
+<ol start="2" type="a">
+<li>Calculate the fitted values, the residual vector <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝒓</mi><mo>=</mo><mi mathvariant="bold-italic">𝒚</mi><mo>−</mo><mi mathvariant="bold-italic">𝑿</mi><mover><mi mathvariant="bold-italic">𝜷</mi><mo accent="true">̂</mo></mover></mrow><annotation encoding="application/x-tex">\mathbf r=\mathbf y-\mathbf X\widehat{\boldsymbol\beta}</annotation></semantics></math>, and the training root mean squared error</li>
 </ol>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">RMSE</mi><mo>⁡</mo></mrow><mo>=</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msubsup><mi>r</mi><mi>i</mi><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">
 \operatorname{RMSE}
