@@ -1,0 +1,1 @@
+What are the best ways to learn R code and remember it in order to complete/attempt homeworks without using any AI at all?
