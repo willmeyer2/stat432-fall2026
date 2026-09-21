@@ -1,0 +1,1 @@
+Why does the specific shape of the constraint region determine whether the optimal solution lands exactly on an axis (zero) versus just shrinking toward one? Would any smooth, differentiable penalty ever produce exact zeros the way lasso's non-differentiable corners do?
