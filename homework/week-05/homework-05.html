@@ -2236,6 +2236,7 @@ vertical-align: -.125em;
   <li><a href="#question-3-observed-dimension-and-latent-dimension" id="toc-question-3-observed-dimension-and-latent-dimension">Question 3: Observed dimension and latent dimension</a></li>
   <li><a href="#question-4-classify-handwritten-digits" id="toc-question-4-classify-handwritten-digits">Question 4: Classify handwritten digits</a></li>
   <li><a href="#question-5-create-a-plot-formatting-skill" id="toc-question-5-create-a-plot-formatting-skill">Question 5: Create a plot-formatting skill</a></li>
+  <li><a href="#plot-format-skill" id="toc-plot-format-skill">plot-format skill</a></li>
   </ul>
 </nav>
 <p>Set a random seed before each simulation question and report it. You may use standard packages unless a question asks you to write the calculation yourself. Use equal neighbor weights throughout. Here <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> counts the covariates used to measure distance; do not add an intercept column to a KNN predictor matrix. R and Python use different random-number generators, so their exact simulation results need not agree.</p>
@@ -2857,8 +2858,35 @@ Predicted   0   1   2   3   4   5   6   7   8   9
 <ol type="a">
 <li><p>Include a title, a description, and a few formatting rules. The description should limit the skill to STAT 432 homework plot improvements and require an explicit request to use it. Your rules should address margins, titles, axes, labels, colors, and sizes for plots produced in R or Python. Keep them portable: do not refer to specific homework questions.</p></li>
 <li><p>Ask your agent to install the skill. Explicitly call it to improve the plot from Question 1, then compare the original and revised versions. Do you like the changes? You may revise the skill and test it a couple more times, or uninstall it if it remains unhelpful.</p></li>
-<li><p>Append your final <code>SKILL.md</code> content to your submission and briefly explain your choices and experience.</p></li>
 </ol>
+<p>I saved the skill as plot-format/SKILL.md and asked Copilot Chat to use it on the Question 1 plot (squared bias, variance and mean squared error against k). The original plot used default formatting with generic axis labels, no title, and colors that were harder to tell apart. The revised plot has a short title, descriptive axis labels (“Number of neighbors (k)” and “Estimated error”), colorblind-friendly colors combined with different line types and point shapes, a 6 by 4 inch size, extra margins so nothing is clipped, and a legend moved outside the plotting region so it does not cover the curves. The agent did not change the data or the plotted quantities, which is what my first rule required. I liked the changes: the plot is easier to read and still readable in grayscale. One thing it did not address is the font size rule, since its list of changes does not mention text size, so a possible revision would be to make that rule more specific about setting a larger base font. I did not need to revise the skill for this test.</p>
+<ol start="3" type="a">
+<li>Append your final <code>SKILL.md</code> content to your submission and briefly explain your choices and experience.</li>
+</ol>
+</section>
+<section id="plot-format-skill" class="level2">
+<h2 class="anchored" data-anchor-id="plot-format-skill">plot-format skill</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="an">name:</span><span class="co"> plot-format</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> Use this skill only when explicitly asked to improve the formatting of a STAT 432 homework plot. It reviews and revises how a plot looks, without changing the data, the analysis, or the conclusions.</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># plot-format</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>Apply this skill only when the user explicitly asks for it by name to improve a STAT 432 homework plot. Do not use it for any other task or apply it unprompted.</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>Rules for plots made in R or Python:</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Change formatting only. Do not change the data, the computed quantities, the random seed, or the meaning of the plot. If a formatting fix would change what is shown, say so and ask first.</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Title: give the plot a short title that says what is plotted, with no more than about 10 words.</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Axes: label both axes in plain words with units or scale when relevant (for example &quot;log(lambda)&quot;, &quot;Test MSE&quot;). Do not leave default labels such as &quot;x&quot; or &quot;y&quot; or raw variable names. Keep axis ranges wide enough that no curve or point is cut off.</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Legend and labels: when there is more than one line or group, include a legend that does not cover the data, using readable names instead of variable names.</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Colors: use a small set of clearly distinguishable colors, and also vary line type or point shape so the plot stays readable in grayscale or for color-blind readers. Use the same color for the same quantity across all plots in a report.</span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Sizes: make text large enough to read when the plot is shrunk to fit a page (base font size at least 11 points). Use line widths of about 1.5 or more and point sizes that are visible without hiding overlapping points.</span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Margins and layout: leave enough margin that titles, axis labels and tick labels are not clipped. Use a sensible aspect ratio, around 6 by 4 inches for a single plot, and avoid extra empty space.</span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Report back: after revising, list each formatting change you made in one short line each, and show the revised code so the student can read and re-run it.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>I limited the skill to explicit requests for STAT 432 homework plots so it would not change plots or other work unprompted. The first rule restricts it to formatting changes so it cannot alter the data or analysis, which matters because the goal is a better-looking plot, not a different result. The remaining rules cover the items the assignment asked for (titles, axes, labels, colors, sizes and margins) in general terms that work in R or Python and do not refer to any specific question. I added the rule about using both color and line type or shape so plots stay readable when printed in black and white, and I added a final rule asking the agent to list what it changed, so I can check the revision instead of trusting it blindly.</p>
+<p>In my test on the Question 1 plot, Copilot followed the skill: it kept the plotted quantities unchanged and improved the title, axis labels, colors, line types, margins and legend placement. I liked the result, and I would keep the skill for future homework plots. It did not clearly address the font size rule, so a future revision could make that rule more specific.</p>
 </section>
 
 </main>
