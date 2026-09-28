@@ -1,0 +1,1 @@
+When KNN measures distance, every covariate counts equally, whether or not it helps predict the response. Why does adding covariates that are irrelevant, or that repeat information already in other covariates, make KNN's neighbors less useful? And what could you do before applying KNN to reduce this problem?
