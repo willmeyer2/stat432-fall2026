@@ -1,0 +1,1 @@
+Logistic regression and KNN both give a probability, and the usual rule predicts the positive class above 0.5. In cancer diagnosis, missing a real case is worse than a false alarm. Should the cutoff move below 0.5 to catch more true cases, or does that only make sense if the model's probabilities are already off?
