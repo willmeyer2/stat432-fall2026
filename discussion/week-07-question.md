@@ -1,0 +1,1 @@
+LDA assumes every class shares one covariance matrix, while QDA lets each class have its own. When the true class covariances differ, which method would you expect to do better on a small training set, and which on a large one? Why?
